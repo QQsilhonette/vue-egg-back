@@ -6,6 +6,8 @@ module.exports = appInfo => {
       csrf: {
         enable: false,
       },
+      // 白名单
+      domainWhiteList: [ 'http://localhost:8863' ],
     },
   };
 

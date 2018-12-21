@@ -1,7 +1,7 @@
 // app/controller/users.js
 'use strict';
 
-const Controller = require('egg').Controller;
+const Controller = require('../core/base_controller');
 
 class UserController extends Controller {
   constructor(ctx) {
@@ -16,7 +16,7 @@ class UserController extends Controller {
     const { ctx } = this;
     ctx.validate(this.createRule, ctx.query);
     const query = { name: ctx.query.name };
-    ctx.body = await ctx.service.user.list(query);
+    ctx.body = await ctx.service.user.find(query);
   }
 
   async show() {

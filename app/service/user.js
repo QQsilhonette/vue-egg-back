@@ -3,8 +3,8 @@
 const Service = require('egg').Service;
 
 class User extends Service {
-  async list(params) {
-    return this.ctx.model.User.findAll({
+  async find(params) {
+    return this.ctx.model.User.findOne({
       where: { name: params.name },
       order: [[ 'created_at', 'desc' ], [ 'id', 'desc' ]],
     });
