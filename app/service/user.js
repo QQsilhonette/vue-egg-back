@@ -3,15 +3,14 @@
 const Service = require('egg').Service;
 
 class User extends Service {
-  async list({ offset = 0, limit = 10 }) {
+  async list(params) {
     return this.ctx.model.User.findAll({
-      offset,
-      limit,
+      where: { name: params.name },
       order: [[ 'created_at', 'desc' ], [ 'id', 'desc' ]],
     });
   }
 
-  async find(id) {
+  async show(id) {
     const user = await this.ctx.model.User.findById(id);
     if (!user) {
       this.ctx.throw(404, 'user not found');

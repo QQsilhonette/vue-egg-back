@@ -4,17 +4,25 @@
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
+  constructor(ctx) {
+    super(ctx);
+    this.createRule = {
+      name: 'string',
+    };
+  }
+
   // /users?limit=2&offset=1
   async index() {
-    const ctx = this.ctx;
-    const query = { limit: ctx.helper.parseInt(ctx.query.limit), offset: ctx.helper.parseInt(ctx.query.offset) };
+    const { ctx } = this;
+    ctx.validate(this.createRule, ctx.query);
+    const query = { name: ctx.query.name };
     ctx.body = await ctx.service.user.list(query);
   }
 
   async show() {
     // /users/1
     const ctx = this.ctx;
-    ctx.body = await ctx.service.user.find(ctx.helper.parseInt(ctx.params.id));
+    ctx.body = await ctx.service.user.show(ctx.helper.parseInt(ctx.params.id));
   }
 
   async create() {
